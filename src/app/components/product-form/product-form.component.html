@@ -1,0 +1,30 @@
+<div class="card card-body">
+
+    <h3>Alta de Producto</h3>
+
+    <form (ngSubmit)="addProduct()">
+
+        <div class="form-group">
+            <input type="text" name="name" [(ngModel)]="product.name" class="form-control mb-3" placeholder="Product name" required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="description" [(ngModel)]="product.description" class="form-control mb-3" placeholder="Product description">
+        </div>
+
+        <div class="form-group">
+            <input type="number" name="price" [(ngModel)]="product.price" step="0.01" class="form-control mb-3" placeholder="Product price">
+        </div>
+
+        <div class="form-group">
+            <!-- <input type="text" name="image" [(ngModel)]="product.image" placeholder="URL Image" class="form-control mb-3"> -->
+            <input type="file" accept="image/*"  value="Cam" (change)="onFileChanged($event)" class="form-control mb-3"/>
+        </div>
+ 
+        <img [src]="isImage == false ? './assets/no-image.png' : imageRender" class="card-img-top" onError="this.src='./assets/no-image.png'">
+
+        <button type="submit" class="btn btn-dark btn-block mt-3">
+            Save
+        </button>
+    </form>
+</div>

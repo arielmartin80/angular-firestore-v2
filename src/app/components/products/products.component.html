@@ -1,0 +1,63 @@
+<div *ngIf="products.length > 0 ; else noproducts">
+
+    <ul class="list-group">
+        <li *ngFor="let p of products" class="list-group-item list-group-item-action">
+            
+            <div class="row">
+                <div class="col-8">
+                    <h5>{{p.name}}</h5>
+                    <h3>$ {{p.price}}</h3>
+                    <p>{{p.description}}</p>
+                    
+                    <button (click)="deleteProduct($event, p)" class="btn btn-danger">
+                        Delete
+                    </button>
+        
+                    <button (click)="editProduct($event, p)" class="btn btn-secondary mx-3">
+                        Edit
+                    </button>
+                </div>
+    
+                <div class="col-4">
+                    <img [src]="p.image" class="card-img-top" onError="this.src='./assets/no-image.png'">
+                </div>
+            </div>
+            
+            <div *ngIf="editing && editingProduct.id == p.id">
+
+                <form (ngSubmit)="updateProduct()">
+
+                    <div class="form-group" class="mt-3">
+                        <input type="text" name="name" [(ngModel)]="editingProduct.name" class="form-control mt-3">
+                    </div>
+
+                    <div class="form">
+                        <input type="text" name="description" [(ngModel)]="editingProduct.description" class="form-control mt-3">
+                    </div>
+
+                    <div class="form-group">
+                       <input type="number" name="price" [(ngModel)]="editingProduct.price" class="form-control mt-3">                     
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="image" [(ngModel)]="editingProduct.image" placeholder="URL Image" class="form-control mb-3">
+                        
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block mt-3">
+                        Update
+                    </button>
+                </form>
+
+            </div>
+
+        </li> 
+    </ul>
+
+</div>
+
+<ng-template #noproducts>
+    <h3 class="text-center">There are no products yet.</h3>
+</ng-template>
+
+
