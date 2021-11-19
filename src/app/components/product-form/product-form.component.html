@@ -18,10 +18,10 @@
 
         <div class="form-group">
             <!-- <input type="text" name="image" [(ngModel)]="product.image" placeholder="URL Image" class="form-control mb-3"> -->
-            <input type="file" accept="image/*"  value="Cam" (change)="onFileChanged($event)" class="form-control mb-3"/>
+            <input hidden type="file" accept="image/*"  value="Cam" (change)="onFileChanged($event)" class="form-control mb-3"#inputImage/>
         </div>
  
-        <img [src]="isImage == false ? './assets/no-image.png' : imageRender" class="card-img-top" onError="this.src='./assets/no-image.png'">
+        <img [src]="isImage == false ? './assets/no-image.png' : imageRender" class="card-img-top" onError="this.src='./assets/no-image.png'"  (click)="inputImage.click()">
 
         <button type="submit" class="btn btn-dark btn-block mt-3">
             Save
