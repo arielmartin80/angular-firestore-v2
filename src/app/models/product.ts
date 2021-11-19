@@ -4,5 +4,5 @@ export interface Product {
     description?: String
     price?: number
     urlImage?: String
-    filePath?: string
+    filePath: string 
 }

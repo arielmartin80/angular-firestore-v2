@@ -12,9 +12,11 @@ import { ProductService } from '../../services/product.service'
 export class ProductsComponent implements OnInit {
   
   products: Product[] = []
+
   editingProduct: Product = {
-    // image: '/assets/no-image.png'
-  }
+    //filePath: ''
+  } as Product
+
   editing: boolean = false
 
   constructor(public  productService: ProductService ) { }
@@ -28,8 +30,12 @@ export class ProductsComponent implements OnInit {
 
   deleteProduct(event: Event, product: Product) {
     if(confirm('Are you sure you wnat to delete it?')) {
-    this.productService.deleteProduct(product)
-  }
+      console.log(typeof(product.filePath))
+      
+      this.productService.deleteFile(product.filePath)
+      this.productService.deleteProduct(product)
+    
+    }
   }
 
   editProduct(event: Event, product: Product ) {

@@ -12,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductFormComponent implements OnInit {
 
   product = {
-    urlImage: ''
+    //urlImage: ''
   } as Product
 
   fileImage!: FileI
@@ -21,15 +21,17 @@ export class ProductFormComponent implements OnInit {
   constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
-    //this.productService.deleteFile('images/1637274819033')
   }
 
-  async addProduct() {
-    if (this.product.name !== '' && this.product.description !== '' && this.product.price !== 0) {
-      
+  addProduct() {
+    if (this.product.name) {
+
       this.productService.saveProductv2(this.product, this.fileImage)
-      //const x = await this.productService.uploadImage('test', this.fileImage)
-      //console.log(x)
+      console.log('product added')
+  
+      this.product = { filePath: ''}
+      this.isImage = false
+
     }else{
       console.log('Faltan datos')
     }
@@ -41,8 +43,6 @@ export class ProductFormComponent implements OnInit {
     
     this.fileImage = event.target.files[0]
     this.isImage = true
-    //this.product.image = event.target.files[0]
-    //console.log(event.target.files[0].name)
 
     var reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);

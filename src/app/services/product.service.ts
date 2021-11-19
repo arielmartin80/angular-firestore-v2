@@ -20,7 +20,7 @@ export class ProductService {
   private filePath!: string
   private downloadURL$!: Observable<String>
   product = {
-    urlImage: ''
+    //urlImage: ''
   } as Product
 
 
