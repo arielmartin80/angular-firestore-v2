@@ -3,5 +3,6 @@ export interface Product {
     name?: String
     description?: String
     price?: number
-    image?: String 
+    urlImage?: String
+    filePath?: string
 }

@@ -20,7 +20,7 @@ export class ProductService {
   private filePath!: string
   private downloadURL$!: Observable<String>
   product = {
-    image: ''
+    urlImage: ''
   } as Product
 
 
@@ -75,7 +75,7 @@ export class ProductService {
       finalize( () => {
         fileRef.getDownloadURL().subscribe( urlImage => {
           //this.downloadURL$ = urlImage
-          product.image =  urlImage.toString()
+          product.urlImage =  urlImage.toString()
           this.updateProduct(this.product)
           console.log('URL_download$:', urlImage)
 
@@ -110,22 +110,19 @@ export class ProductService {
   async saveProductv2(product: Product, image: FileI) {
 
     this.product = product
-    this.filePath = `images/${image.name}`
-    const fileRef = this.storage.ref(this.filePath)
+    const fileName = new Date().getTime()
+    this.product.filePath = `images/${fileName}`
+    const fileRef = this.storage.ref(this.product.filePath)
 
-    const task = this.storage.upload(this.filePath, image)
+    const task = this.storage.upload(this.product.filePath, image)
 
     task.snapshotChanges().pipe(
       finalize( () => {
         fileRef.getDownloadURL().subscribe( urlImage => {
         
-          this.product.image =  urlImage.toString()
+          this.product.urlImage =  urlImage.toString()
           const docRef = this.productsCollection.add(this.product)
-          // this.filePath = `images/${docRef.id}`
-          // const fileRef = this.storage.ref(this.filePath)
           // console.log('URL_download$:', urlImage)
-          //this.setUrl(urlImage.toString())
-          //return urlImage.toString()
         })
       })
     ).subscribe()
@@ -133,8 +130,8 @@ export class ProductService {
   }
 
 
-  deleteFileByUrl(url: string) {
-    let desertRef = this.storage.ref(url)
+  deleteFile(filePath: string) {
+    let desertRef = this.storage.ref(filePath)
     desertRef.delete()
   }
 

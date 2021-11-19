@@ -12,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductFormComponent implements OnInit {
 
   product = {
-    image: ''
+    urlImage: ''
   } as Product
 
   fileImage!: FileI
@@ -21,7 +21,7 @@ export class ProductFormComponent implements OnInit {
   constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
-    //this.productService.deleteFile('images/undefined')
+    //this.productService.deleteFile('images/1637274819033')
   }
 
   async addProduct() {
