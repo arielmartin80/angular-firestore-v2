@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FileI } from 'src/app/models/fileI';
 import { Product } from 'src/app/models/product';
 
 import { ProductService } from '../../services/product.service'
@@ -16,7 +17,9 @@ export class ProductsComponent implements OnInit {
   editingProduct: Product = {
     //filePath: ''
   } as Product
-
+  
+  fileImage: FileI = {}
+  isImage = false
   editing: boolean = false
 
   constructor(public  productService: ProductService ) { }
@@ -41,12 +44,34 @@ export class ProductsComponent implements OnInit {
   editProduct(event: Event, product: Product ) {
     this.editingProduct = product
     this.editing = !this.editing
+    if(!this.editing) {
+      this.fileImage={}
+      this.imageRender=''
+    }
+
   }
 
   updateProduct() {
-    this.productService.updateProduct(this.editingProduct)
+    this.productService.updateProductCard(this.editingProduct, this.fileImage)
     this.editingProduct = {} as Product
     this.editing = false
+    this.imageRender=''
+    
   }
+
+  imageRender: any = '';
+
+  onFileChanged(event:any) {
+    
+    this.fileImage = event.target.files[0]
+    //this.isImage = true
+
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (event) => {
+      this.imageRender = (<FileReader>event.target).result;
+    }
+  }
+
 
 }

@@ -64,50 +64,28 @@ export class ProductService {
   }
 
 
+
+  // async uploadImage(name: String, image: FileI) {
+
+  //   this.filePath = `images/${name}`
+  //   const fileRef = this.storage.ref(this.filePath)
+
+  //   const task = this.storage.upload(this.filePath, image)
+
+  //   const url =  task.snapshotChanges().pipe(
+  //     finalize(  () => {
+  //       fileRef.getDownloadURL().subscribe( urlImage => {
+  //         //this.downloadURL$ = urlImage
+  //         console.log('URL_download$:', urlImage)
+  //         return urlImage.toString()
+  //       })
+  //     })
+  //   ).subscribe()
+  //     return url
+  // }
+
+
   async saveProduct(product: Product, image: FileI) {
-    const docRef = await this.productsCollection.add(product)
-    this.filePath = `images/${docRef.id}`
-    const fileRef = this.storage.ref(this.filePath)
-
-    const task = this.storage.upload(this.filePath, image)
-
-    task.snapshotChanges().pipe(
-      finalize( () => {
-        fileRef.getDownloadURL().subscribe( urlImage => {
-          //this.downloadURL$ = urlImage
-          product.urlImage =  urlImage.toString()
-          this.updateProduct(this.product)
-          console.log('URL_download$:', urlImage)
-
-    //const url = await this.uploadImage(docRef.id, image)
-    //this.product.image = this.downloadURL$.subscribe()
-          })
-      })
-    ).subscribe()
-  }
-
-
-  async uploadImage(name: String, image: FileI) {
-
-    this.filePath = `images/${name}`
-    const fileRef = this.storage.ref(this.filePath)
-
-    const task = this.storage.upload(this.filePath, image)
-
-    const url =  task.snapshotChanges().pipe(
-      finalize(  () => {
-        fileRef.getDownloadURL().subscribe( urlImage => {
-          //this.downloadURL$ = urlImage
-          console.log('URL_download$:', urlImage)
-          return urlImage.toString()
-        })
-      })
-    ).subscribe()
-      return url
-  }
-
-
-  async saveProductv2(product: Product, image: FileI) {
 
     this.product = product
     const fileName = new Date().getTime()
@@ -126,6 +104,34 @@ export class ProductService {
         })
       })
     ).subscribe()
+      
+  }
+
+
+  async updateProductCard(product: Product, image: FileI) {
+    
+    if(image.name) {
+      this.product = product
+
+      const fileRef = this.storage.ref(this.product.filePath)
+  
+      const task = this.storage.upload(this.product.filePath, image)
+  
+      task.snapshotChanges().pipe(
+        finalize( () => {
+          fileRef.getDownloadURL().subscribe( urlImage => {
+          
+            this.product.urlImage =  urlImage.toString()
+            this.updateProduct(this.product)
+            console.log('se actualizaron datos y foto')
+          })
+        })
+      ).subscribe()
+    }
+    else {
+      this.updateProduct(this.product)
+      console.log('solo se actualizaron los datos')
+    }
       
   }
 

@@ -20,7 +20,8 @@
                 </div>
     
                 <div class="col-4">
-                    <img [src]="p.urlImage" class="card-img-top" onError="this.src='./assets/no-image.png'">
+                    <!--<img [src]="p.urlImage" class="card-img-top" onError="this.src='./assets/no-image.png'"/> -->
+                    <img [src]="imageRender != '' && editingProduct.id == p.id ? imageRender : p.urlImage" class="card-img-top" onError="this.src='./assets/no-image.png'" >
                 </div>
             </div>
             
@@ -41,10 +42,11 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="image" [(ngModel)]="editingProduct.urlImage" placeholder="URL Image" class="form-control mb-3">
-                        
+                        <input type="text" name="image" [(ngModel)]="fileImage" placeholder="URL Image" class="form-control mb-3" />
                     </div>
 
+                    <input type="file" accept="image/*"  value="Cam" (change)="onFileChanged($event)" class="form-control mb-3" #inputImageEdit/>
+                    
                     <button type="submit" class="btn btn-success btn-block mt-3">
                         Update
                     </button>

@@ -26,7 +26,7 @@ export class ProductFormComponent implements OnInit {
   addProduct() {
     if (this.product.name) {
 
-      this.productService.saveProductv2(this.product, this.fileImage)
+      this.productService.saveProduct(this.product, this.fileImage)
       console.log('product added')
   
       this.product = { filePath: ''}
