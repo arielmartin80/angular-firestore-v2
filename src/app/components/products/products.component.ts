@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
   editingProduct: Product = {
     //filePath: ''
   } as Product
-  
+
   fileImage: FileI = {}
   isImage = false
   editing: boolean = false
@@ -54,9 +54,10 @@ export class ProductsComponent implements OnInit {
   updateProduct() {
     this.productService.updateProductCard(this.editingProduct, this.fileImage)
     this.editingProduct = {} as Product
-    this.editing = false
-    this.imageRender=''
     
+    this.fileImage = {}
+    this.imageRender=''
+    this.editing = false
   }
 
   imageRender: any = '';

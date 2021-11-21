@@ -111,7 +111,7 @@ export class ProductService {
   async updateProductCard(product: Product, image: FileI) {
     
     this.product = product
-    
+    console.log('image name: ',image.name)
     if(image.name) {
     
       const fileRef = this.storage.ref(this.product.filePath)
@@ -131,7 +131,7 @@ export class ProductService {
     }
     else {
       this.updateProduct(this.product)
-      console.log('solo se actualizaron los datos')
+      console.log('solo se actualizaron datos')
     }
       
   }
