@@ -110,9 +110,10 @@ export class ProductService {
 
   async updateProductCard(product: Product, image: FileI) {
     
+    this.product = product
+    
     if(image.name) {
-      this.product = product
-
+    
       const fileRef = this.storage.ref(this.product.filePath)
   
       const task = this.storage.upload(this.product.filePath, image)
