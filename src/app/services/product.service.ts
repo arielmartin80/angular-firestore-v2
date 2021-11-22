@@ -28,8 +28,9 @@ export class ProductService {
     // CONSULTA SIN ID
     // this.products = this.db.collection('products').valueChanges()
 
-    //CONSULTA CON ID
-    this.productsCollection = this.db.collection('products')
+    //CONSULTA CON ID y query
+    this.productsCollection = this.db.collection('products',queryFn => queryFn.orderBy('filePath', 'desc'))
+
 
     this.products = this.productsCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
@@ -143,3 +144,5 @@ export class ProductService {
   }
 
 }
+
+
