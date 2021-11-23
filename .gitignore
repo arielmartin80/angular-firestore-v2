@@ -45,5 +45,5 @@ testem.log
 Thumbs.db
 
 # config environment
-environment.prod.tsc
+environment.prod.ts
 environment.ts
