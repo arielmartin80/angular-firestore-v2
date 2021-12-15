@@ -45,5 +45,4 @@ testem.log
 Thumbs.db
 
 # config environment
-environment.prod.ts
-environment.ts
+
